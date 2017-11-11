@@ -1,0 +1,27 @@
+{
+  "name": "digital-library",
+  "version": "1.0.0",
+  "description": "Simple File storage",
+  "main": "server.js",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "ejs": "^2.5.7",
+    "express": "^4.16.2",
+    "fs": "0.0.1-security",
+    "gridfs-stream": "^1.1.1",
+    "mongoose": "^4.13.1",
+    "multer": "^1.3.0",
+    "multer-gridfs-storage": "^2.1.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "dev"
+  },
+  "author": "",
+  "license": "ISC"
+}
