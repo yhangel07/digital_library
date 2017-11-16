@@ -10,6 +10,6 @@ import { FileUploader } from 'ng2-file-upload';
 
 export class UploadFilesComponent{
 
-    public uploader: FileUploader = new FileUploader({ url: 'http://localhost:3001/upload' });
+    public uploader: FileUploader = new FileUploader({ url: '/api/files/upload' });
     onChange(event: any): void { event.srcElement.value = ''; }
 }
