@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FilesService } from './services/files/files.service';
 
 @Component({
@@ -8,4 +8,6 @@ import { FilesService } from './services/files/files.service';
   providers: [FilesService]
 })
 
-export class AppComponent { }
+export class AppComponent {
+
+ }

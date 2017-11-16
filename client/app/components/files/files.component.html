@@ -1,7 +1,19 @@
 <div class="container">
-    <div class="task-list">
-        <div *ngFor="let file of files">
-             {{file.filename}}
-        </div>
-    </div>
+    <ul class="list-group">
+        <!-- <div *ngFor="let file of files" class="list-group-item"> -->
+        <li class="list-group-item" *ngFor="let file of files">
+            {{ file.metadata.originalname }}
+            <!--
+             <div class="col-md-7">
+                {{ file.metadata.originalname }}
+             </div>
+             <div class="col-md-1">
+                {{ file.length }}
+             </div>
+             <div class="col-md-2">
+                {{ file.uploadDate | date: 'MM-dd-yyyy'}}
+             </div>
+            -->
+        </li>
+    </ul>
 </div>

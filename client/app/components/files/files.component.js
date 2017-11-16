@@ -18,6 +18,7 @@ var FilesComponent = (function () {
         this.filesService.getAllFiles()
             .subscribe(function (files) {
             _this.files = files;
+            console.log('Files: ', files);
         });
     }
     return FilesComponent;

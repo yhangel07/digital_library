@@ -15,6 +15,7 @@ export class FilesComponent{
         this.filesService.getAllFiles()
             .subscribe(files =>{
                 this.files = files;
+                console.log('Files: ', files);
             });
     }
 }

@@ -13,4 +13,11 @@ export class FilesService{
         return this.http.get('/api/files/getAllFiles')
             .map(res => res.json());
     }
+
+    addFile(newFile) {
+        var headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        return this.http.post('/api/files/upload', JSON.stringify(newFile), { headers: headers })
+            .map(res => res.json());
+    }
 }
