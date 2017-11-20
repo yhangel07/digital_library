@@ -1,18 +1,31 @@
-var express = require('express');
+var express = require("express"),
+	app = express(),
+	cors = require('cors'),
+	bodyParser = require("body-parser"),
+	methodOverride = require("method-override"),
+	http = require("http"),
+	multer = require('multer');
+server = http.createServer(app),
+	router = express.Router()
+
+	app.use(function (req, res, next) {
+	res.header("Access-Control-Allow-Methods", "POST, PUT, OPTIONS, DELETE, GET");
+	res.header('Access-Control-Allow-Origin', 'http://localhost:3000');
+	res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+	res.header("Access-Control-Allow-Credentials", true);
+	next();
+});
+
 var router = express.Router();
-
-var multer = require('multer');
-var GridFsStorage = require('multer-gridfs-storage');
-
-var Grid = require('gridfs-stream');
-
 var mongoose = require('mongoose');
 var URL = 'mongodb://127.0.0.1/gridfstest';
-
-var promise = mongoose.connect(URL);
+mongoose.connect(URL);
 var conn = mongoose.connection;
+var GridFsStorage = require('multer-gridfs-storage');
+var Grid = require('gridfs-stream');
 Grid.mongo = mongoose.mongo;
 var gfs = Grid(conn.db);
+
 
 router.get('/getAllFiles', function(req, res, next){
 	gfs.collection('ctFiles');
@@ -25,48 +38,32 @@ router.get('/getAllFiles', function(req, res, next){
 	});
 });
 
-var storage = GridFsStorage({
-//	url: URL,
-	db: promise,
+var storage = new GridFsStorage({
+	url: URL,
+	//db: conn,
 	file: (req, file) =>{
 		return ({
-			// filename: function (req, file, cb) {
-			// 	var datetimestamp = Date.now();
-			// 	cb(null, file.fieldname + '-' + datetimestamp + '.' + file.originalname.split('.')[file.originalname.split('.').length - 1]);
-			// },
-			// metadata: function (req, file, cb) {
-			// 	cb(null, { originalname: file.originalname });
-			// },
-			filename: 'File_ ' + Date.now(),
-			bucketName: 'ctFiles'
+			bucketName: 'ctFiles',
+			filename: 'file-' + Date.now() + '.' + file.originalname.split('.')[file.originalname.split('.').length - 1],
+			metadata: {
+				originalname: file.originalname
+			}
+			//,add Aliases for searching
 		});
 	}
 });
-
- //var storage = GridFsStorage({
-// 	gfs: gfs,
-// 	filename: function (req, file, cb) {
-// 		var datetimestamp = Date.now();
-// 		cb(null, file.fieldname + '-' + datetimestamp + '.' + file.originalname.split('.')[file.originalname.split('.').length - 1]);
-// 	},
-// 	/** With gridfs we can store aditional meta-data along with the file */
-// 	metadata: function (req, file, cb) {
-// 		cb(null, { originalname: file.originalname });
-// 	},
-// 	root: 'ctFiles' //root name for collection to store files into
- //});
 
 var upload = multer({ //multer settings
 	storage: storage
 }).single('file');
 
-router.post('/upload', function(req, res, next) {
+router.post('/upload',function(req, res) {
     upload(req,res,function(err){
         if(err){
              res.json({error_code:1,err_desc:err});
              return;
         }
-         res.json({error_code:0,err_desc:null});
+         res.json({error_code:0,err_desc:'Success!'});
     });
 });
 
