@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers } from '@angular/http';
+import { Http, Headers, ResponseContentType } from '@angular/http';
 import 'rxjs/add/operator/map';
 import { FileUploader, FileItem } from 'ng2-file-upload';
 import { Observable } from 'rxjs/Observable';
@@ -18,4 +18,13 @@ export class FilesService{
     getAllFiles(): Observable<Files[]>{
         return this.http.get('/api/files/getAllFiles').map(res => res.json());
     }
+
+    getFile(id): any {
+        return this.http.get('/api/files/file/' + id, { responseType: ResponseContentType.Blob }).map(
+            (res) => {
+                return new Blob([res.blob()], { type: res.blob().type })
+            });
+    }
+
+    
 }

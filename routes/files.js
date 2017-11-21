@@ -21,6 +21,7 @@ var mongoose = require('mongoose');
 var URL = 'mongodb://127.0.0.1/gridfstest';
 mongoose.connect(URL);
 var conn = mongoose.connection;
+var ObjectId = require('mongodb').ObjectId; 
 
 var GridFsStorage = require('multer-gridfs-storage');
 var Grid = require('gridfs-stream');
@@ -67,11 +68,14 @@ router.post('/upload', function (req, res) {
 	});
 }); 
 
-router.get('/:filename', function (req, res) {
+router.get('/file/:id', function (req, res) {
 	gfs.collection('ctFiles'); //set collection name to lookup into
 
+	var id = req.params.id;       
+	var obj_id = new ObjectId(id);
+
 	/** First check if file exists */
-	gfs.files.find({ filename: req.params.filename }).toArray(function (err, files) {
+	gfs.files.find({ _id : obj_id }).toArray(function (err, files) {
 		if (!files || files.length === 0) {
 			return res.status(404).json({
 				responseCode: 1,
@@ -79,7 +83,6 @@ router.get('/:filename', function (req, res) {
 			});
 		}
 
-		console.log('Success: ', files);
 		/** create read stream */
 		var readstream = gfs.createReadStream({
 			_id: files[0]._id,
@@ -89,7 +92,10 @@ router.get('/:filename', function (req, res) {
 		res.set('Content-Type', files[0].contentType)
 		/** return response */
 		return readstream.pipe(res);
+		
 	});
 });
+
+
 
 module.exports = router;

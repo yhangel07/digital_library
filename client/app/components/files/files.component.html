@@ -1,8 +1,8 @@
 <div class="container">
     <ul class="list-group">
         <!-- <div *ngFor="let file of files" class="list-group-item"> -->
-        <li class="list-group-item" *ngFor="let file of files">
-            {{ file.metadata.originalname }}
+        <li class="list-group-item" *ngFor="let file of files" (click)="viewFile(file)" style="cursor:pointer">
+                {{ file.metadata.originalname }}
             <!--
              <div class="col-md-7">
                 {{ file.metadata.originalname }}

@@ -21,6 +21,13 @@ var FilesComponent = (function () {
             console.log('Files: ', files);
         });
     }
+    FilesComponent.prototype.viewFile = function (file) {
+        this.filesService.getFile(file._id)
+            .subscribe(function (res) {
+            var fileURL = URL.createObjectURL(res);
+            window.open(fileURL);
+        });
+    };
     return FilesComponent;
 }());
 FilesComponent = __decorate([

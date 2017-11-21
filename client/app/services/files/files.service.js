@@ -20,6 +20,11 @@ var FilesService = (function () {
     FilesService.prototype.getAllFiles = function () {
         return this.http.get('/api/files/getAllFiles').map(function (res) { return res.json(); });
     };
+    FilesService.prototype.getFile = function (id) {
+        return this.http.get('/api/files/file/' + id, { responseType: http_1.ResponseContentType.Blob }).map(function (res) {
+            return new Blob([res.blob()], { type: res.blob().type });
+        });
+    };
     return FilesService;
 }());
 FilesService = __decorate([
