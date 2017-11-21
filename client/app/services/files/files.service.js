@@ -18,14 +18,7 @@ var FilesService = (function () {
         console.log('Files Service Initialized...');
     }
     FilesService.prototype.getAllFiles = function () {
-        return this.http.get('/api/files/getAllFiles')
-            .map(function (res) { return res.json(); });
-    };
-    FilesService.prototype.addFile = function (newFile) {
-        var headers = new http_1.Headers();
-        headers.append('Content-Type', 'application/json');
-        return this.http.post('/api/files/upload', JSON.stringify(newFile), { headers: headers })
-            .map(function (res) { return res.json(); });
+        return this.http.get('/api/files/getAllFiles').map(function (res) { return res.json(); });
     };
     return FilesService;
 }());
