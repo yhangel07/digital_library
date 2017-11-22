@@ -13,7 +13,8 @@ import { Files } from '../../declarations/Files';
 
 export class FilesComponent{
     files : Files[];
-    
+    fileUrl: string = "http://localhost:3000/api/files/file/5a13979a51fc072e585d2d2c";
+
     constructor(private filesService:FilesService){
         this.filesService.getAllFiles()
             .subscribe(files => {
@@ -26,8 +27,10 @@ export class FilesComponent{
         this.filesService.getFile(file._id)
             .subscribe(
             (res) => {
-                var fileURL = URL.createObjectURL(res);
-                window.open(fileURL);
+                // var fileURL = URL.createObjectURL(res);
+                this.fileUrl = res.url;
+                window.open(res.url);
+                console.log(res);
             } 
         );
     }

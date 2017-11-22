@@ -71,6 +71,7 @@ router.post('/upload', function (req, res) {
 router.get('/file/:id', function (req, res) {
 	gfs.collection('ctFiles'); //set collection name to lookup into
 
+	var myFileattrb;
 	var id = req.params.id;       
 	var obj_id = new ObjectId(id);
 
@@ -88,14 +89,35 @@ router.get('/file/:id', function (req, res) {
 			_id: files[0]._id,
 			root: "ctFiles"
 		});
+
+		var fileName = files[0].metadata.originalname;
+			
+		/** Set filename */
+		//res.set('Content-disposition', 'attachment; filename=' + encodeRFC5987ValueChars(fileName));
+		//TODO change name //res.attachment('/' + fileName);
 		/** set the proper content type */
 		res.set('Content-Type', files[0].contentType)
 		/** return response */
-		return readstream.pipe(res);
 		
+
+		return readstream.pipe(res);
+	
 	});
 });
 
+
+
+
+var encodeRFC5987ValueChars = function (str) {
+	return encodeURIComponent(str).
+		// Note that although RFC3986 reserves "!", RFC5987 does not,
+		// so we do not need to escape it
+		replace(/['()]/g, escape). // i.e., %27 %28 %29
+		replace(/\*/g, '%2A').
+		// The following are not required for percent-encoding per RFC5987, 
+		// so we can allow for a little better readability over the wire: |`^
+		replace(/%(?:7C|60|5E)/g, unescape);
+}
 
 
 module.exports = router;

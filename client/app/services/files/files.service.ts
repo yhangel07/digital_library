@@ -20,11 +20,22 @@ export class FilesService{
     }
 
     getFile(id): any {
-        return this.http.get('/api/files/file/' + id, { responseType: ResponseContentType.Blob }).map(
-            (res) => {
-                return new Blob([res.blob()], { type: res.blob().type })
-            });
+        return this.http.get('/api/files/file/' + id, { responseType: ResponseContentType.Blob });
+        // .map(
+        //     (res) => 
+        //     {
+        //         console.log(res);
+        //         return new Blob([res.blob()], { type: res.blob().type })
+        //     }
+        // );
     }
 
+    // getFile(id): any {
+    //     return this.http.get('/api/files/file/' + id).map(
+    //         (myFileattrb) => {
+    //             console.log(myFileattrb);
+    //         }
+    //     );
+    // }
     
 }

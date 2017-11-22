@@ -15,6 +15,7 @@ var FilesComponent = (function () {
     function FilesComponent(filesService) {
         var _this = this;
         this.filesService = filesService;
+        this.fileUrl = "http://localhost:3000/api/files/file/5a13979a51fc072e585d2d2c";
         this.filesService.getAllFiles()
             .subscribe(function (files) {
             _this.files = files;
@@ -22,10 +23,13 @@ var FilesComponent = (function () {
         });
     }
     FilesComponent.prototype.viewFile = function (file) {
+        var _this = this;
         this.filesService.getFile(file._id)
             .subscribe(function (res) {
-            var fileURL = URL.createObjectURL(res);
-            window.open(fileURL);
+            // var fileURL = URL.createObjectURL(res);
+            _this.fileUrl = res.url;
+            window.open(res.url);
+            console.log(res);
         });
     };
     return FilesComponent;
