@@ -44,7 +44,11 @@
       'ng2-file-upload': {
         main: './ng2-file-upload.js',
         defaultExtension: 'js'
-      }
+      },
+      'ngx-file-viewer':{
+        main: './ngx-file-viewer.js',
+        defaultExtension: 'js'
+      },
     }
   });
 })(this);

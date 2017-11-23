@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FilesService } from '../../services/files/files.service';
 import { Files } from '../../declarations/Files';
 
-
 @Component({
     moduleId: module.id,
     selector: 'app-files',
@@ -21,6 +20,8 @@ export class FilesComponent{
                 this.files = files;
                 console.log('Files: ', files);
             });
+        
+
     }
 
     viewFile(file){
@@ -34,5 +35,7 @@ export class FilesComponent{
             } 
         );
     }
+
+
 
 }

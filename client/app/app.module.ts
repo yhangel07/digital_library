@@ -11,7 +11,12 @@ import { UploadFilesComponent } from './components/uploadFiles/uploadFiles.compo
 
 @NgModule({
   imports: [BrowserModule, HttpModule, FormsModule ],
-  declarations: [AppComponent, FileSelectDirective, FilesComponent, UploadFilesComponent,  ],
+  declarations: [
+    AppComponent, 
+    FileSelectDirective, 
+    FilesComponent, 
+    UploadFilesComponent,  
+  ],
   bootstrap:    [ AppComponent ]
 })
 
