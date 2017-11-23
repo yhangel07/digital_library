@@ -21,14 +21,11 @@ var FilesService = (function () {
         return this.http.get('/api/files/getAllFiles').map(function (res) { return res.json(); });
     };
     FilesService.prototype.getFile = function (id) {
-        return this.http.get('/api/files/file/' + id, { responseType: http_1.ResponseContentType.Blob });
-        // .map(
-        //     (res) => 
-        //     {
-        //         console.log(res);
-        //         return new Blob([res.blob()], { type: res.blob().type })
-        //     }
-        // );
+        return this.http.get('/api/files/file/' + id, { responseType: http_1.ResponseContentType.Blob })
+            .map(function (res) {
+            console.log('In Services: ', res);
+            return { blob: new Blob([res.blob()], { type: res.blob().type }), url: res.url, id: res.headers.get('data') };
+        });
     };
     return FilesService;
 }());

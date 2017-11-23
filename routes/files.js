@@ -97,10 +97,10 @@ router.get('/file/:id', function (req, res) {
 		//res.set('Content-disposition', 'attachment; filename=' + encodeRFC5987ValueChars(fileName));
 		//TODO change name //res.attachment('/' + fileName);
 		/** set the proper content type */
-		res.set('Content-Type', files[0].contentType)
+		res.set('Content-Type', files[0].contentType);
+		res.set('data', files[0]._id);
 		/** return response */
 		
-
 		return readstream.pipe(res);
 	
 	});

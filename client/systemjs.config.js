@@ -25,7 +25,7 @@
       'rxjs':                      'npm:rxjs',
       'angular-in-memory-web-api': 'npm:angular-in-memory-web-api',
       /** Path for ng2-file-upload */
-      'ng2-file-upload': 'npm:ng2-file-upload' 
+      'ng2-file-upload': 'npm:ng2-file-upload',
     },
     // packages tells the System loader how to load when no filename and/or no extension
     packages: {
@@ -43,10 +43,6 @@
       /** Configuration for ng2-file-upload */
       'ng2-file-upload': {
         main: './ng2-file-upload.js',
-        defaultExtension: 'js'
-      },
-      'ngx-file-viewer':{
-        main: './ngx-file-viewer.js',
         defaultExtension: 'js'
       },
     }

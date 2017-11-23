@@ -1,25 +1,40 @@
-<div class="container">
-    <ul class="list-group">
-        <!-- <div *ngFor="let file of files" class="list-group-item"> -->
-        <li class="list-group-item" *ngFor="let file of files" (click)="viewFile(file)" style="cursor:pointer">
-                {{ file.metadata.originalname }}
-            <!--
-             <div class="col-md-7">
-                {{ file.metadata.originalname }}
-             </div>
-             <div class="col-md-1">
-                {{ file.length }}
-             </div>
-             <div class="col-md-2">
-                {{ file.uploadDate | date: 'MM-dd-yyyy'}}
-             </div>
-            -->
-        </li>
-    </ul>
+<div class="container" [hidden]="filePreview">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Owner</th>
+                <th>Last Modified</th>
+                <th>File Size</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let file of files" (click)="viewFile(file)" style="cursor:pointer">
+                <th scope="row">
+                    {{ file.metadata.originalname }}
+                </th>
+                <td>
+                    -
+                </td>
+                <td>
+                    {{ file.uploadDate | date: 'MM-dd-yyyy hh:mm:ss'}}
+                </td>
+                <td>
+                    {{ formatBytes( file.length , 2) }}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
 
-    <div>
-        <iframe id="iframe" 
-        src="http://localhost:3000/ViewerJS/#../api/files/file/5a16412692d5b137a00f6c64" 
-        width="800" height="500" allowfullscreen webkitallowfullscreen></iframe>
+<div class="container" [hidden]="!filePreview">
+    <button type="button" class="btn btn-secondary" (click)="filePreview = false; fileURL = 'about:blank';">
+        <span class="glyphicon glyphicon-chevron-left"></span>
+        <span class="glyphicon glyphicon-chevron-left"></span>
+        Back</button>
+    <div class="" style="margin-top: 10px;">
+        <iframe id="iframe" [src]="fileURL | safe" width="800" height="500" allowfullscreen webkitallowfullscreen></iframe>
     </div>
 </div>
+
+
